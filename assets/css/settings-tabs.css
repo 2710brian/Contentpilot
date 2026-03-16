@@ -1,0 +1,142 @@
+/**
+ * Settings Page Tab-Specific Styles
+ * 
+ * Extends tabs.css with settings-specific styling
+ * 
+ * @package AEBG
+ */
+
+/* Settings tabs wrapper specific styles */
+#aebg-settings-tabs {
+    margin-top: 24px;
+}
+
+/* Settings cards in tabs */
+.aebg-tab-panel .aebg-settings-card {
+    margin-bottom: 24px;
+}
+
+.aebg-tab-panel .aebg-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+/* Settings header adjustments for tabs */
+.aebg-tab-panel .aebg-settings-header {
+    margin-bottom: 0;
+}
+
+/* Form elements in tabs */
+.aebg-tab-panel .aebg-form-group {
+    margin-bottom: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .aebg-tab-panel .aebg-settings-card {
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+    
+    .aebg-tab-panel .aebg-card-header {
+        padding: 16px;
+    }
+    
+    .aebg-tab-panel .aebg-card-header h2 {
+        font-size: 18px;
+    }
+    
+    .aebg-tab-panel .aebg-card-content {
+        padding: 16px;
+    }
+    
+    .aebg-tab-panel .aebg-settings-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    /* Settings header - mobile optimization */
+    .aebg-settings-header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .aebg-settings-title h1 {
+        font-size: 24px;
+    }
+    
+    .aebg-settings-actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
+    .aebg-settings-actions .aebg-btn {
+        flex: 1 1 auto;
+        min-width: 120px;
+        justify-content: center;
+    }
+    
+    /* Form elements - mobile friendly */
+    .aebg-tab-panel .aebg-form-group {
+        margin-bottom: 20px;
+    }
+    
+    .aebg-tab-panel .aebg-input,
+    .aebg-tab-panel .aebg-select,
+    .aebg-tab-panel .aebg-textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px;
+    }
+    
+    /* Slider containers - mobile */
+    .aebg-tab-panel .aebg-slider-container {
+        padding: 8px 0;
+    }
+    
+    .aebg-tab-panel .aebg-slider {
+        width: 100%;
+    }
+    
+    /* Button groups - mobile stack */
+    .aebg-tab-panel .aebg-button-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .aebg-tab-panel .aebg-button-group .aebg-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .aebg-tab-panel .aebg-settings-card {
+        margin-bottom: 12px;
+    }
+    
+    .aebg-tab-panel .aebg-card-header,
+    .aebg-tab-panel .aebg-card-content {
+        padding: 12px;
+    }
+    
+    .aebg-tab-panel .aebg-form-group {
+        margin-bottom: 16px;
+    }
+    
+    .aebg-settings-header {
+        padding: 16px;
+    }
+    
+    .aebg-settings-title h1 {
+        font-size: 20px;
+    }
+    
+    .aebg-settings-actions .aebg-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-width: 100px;
+    }
+}
+

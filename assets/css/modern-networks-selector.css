@@ -1,0 +1,502 @@
+/**
+ * Modern Networks Selector Styles - Clean Settings Page Design
+ * Focused on simplicity, clarity, and ease of use for bulk generator settings
+ */
+
+/* Main Container - Cleaner, more focused */
+.aebg-networks-selector {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Configuration Option - New checkbox styling */
+.aebg-config-option {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.aebg-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.aebg-checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.aebg-checkbox-custom {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.aebg-checkbox-label input[type="checkbox"]:checked + .aebg-checkbox-custom {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.aebg-checkbox-label input[type="checkbox"]:checked + .aebg-checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.aebg-checkbox-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.aebg-checkbox-text strong {
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.aebg-checkbox-text small {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* Network Selection Interface */
+.aebg-network-selection {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 24px;
+}
+
+.aebg-selection-header {
+    margin-bottom: 20px;
+}
+
+.aebg-selection-header h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.aebg-selection-description {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Filter Bar - Better organized */
+.aebg-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.aebg-search-container {
+    position: relative;
+    flex: 1;
+}
+
+.aebg-search-input {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.aebg-search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.aebg-search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #6b7280;
+    pointer-events: none;
+}
+
+/* Filter Tabs - Clean and organized */
+.aebg-filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.aebg-filter-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.aebg-filter-tab:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+.aebg-filter-tab.active {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+/* Networks Grid Container */
+.aebg-networks-grid-container {
+    margin-bottom: 20px;
+}
+
+.aebg-networks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.aebg-networks-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.aebg-networks-grid::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.aebg-networks-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.aebg-networks-grid::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Network Items - Cleaner, more spacious */
+.aebg-network-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.aebg-network-item:hover {
+    border-color: #3b82f6;
+    background: #f0f9ff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+.aebg-network-item.selected {
+    border-color: #10b981;
+    background: #ecfdf5;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.aebg-network-item.configured {
+    border-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.aebg-network-item.configured::before {
+    content: '🔒';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Network Checkbox - Improved styling */
+.aebg-network-checkbox {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.aebg-network-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.aebg-network-checkbox label {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.aebg-network-checkbox input[type="checkbox"]:checked + label {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.aebg-network-checkbox input[type="checkbox"]:checked + label::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Network Info - Better typography */
+.aebg-network-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.aebg-network-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.aebg-network-country {
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.aebg-network-status {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.aebg-network-status.configured {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.aebg-network-status.unconfigured {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Selection Summary - Clean stats and actions */
+.aebg-selection-summary {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.aebg-summary-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.aebg-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.aebg-stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+.aebg-stat-label {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.aebg-summary-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Buttons - Consistent styling */
+.aebg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.aebg-btn-secondary {
+    background: #6b7280;
+    color: #ffffff;
+}
+
+.aebg-btn-secondary:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+}
+
+.aebg-btn-danger {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.aebg-btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Empty States */
+.aebg-no-networks {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+    font-style: italic;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px dashed #d1d5db;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .aebg-networks-selector {
+        padding: 16px;
+    }
+    
+    .aebg-networks-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .aebg-network-item {
+        padding: 12px;
+        gap: 8px;
+    }
+    
+    .aebg-selection-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .aebg-summary-stats {
+        justify-content: center;
+    }
+    
+    .aebg-summary-actions {
+        justify-content: center;
+    }
+    
+    .aebg-filter-tabs {
+        justify-content: center;
+    }
+}
+
+/* Focus States for Accessibility */
+.aebg-network-item:focus-within {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.aebg-filter-tab:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.aebg-btn:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Smooth Transitions */
+.aebg-networks-selector * {
+    transition: all 0.2s ease;
+}
+
+/* Selection Animation */
+.aebg-network-item.selected {
+    animation: selectPulse 0.4s ease-out;
+}
+
+@keyframes selectPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+} 

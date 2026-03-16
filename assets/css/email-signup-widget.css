@@ -1,0 +1,86 @@
+/**
+ * Email Signup Widget Styles
+ * 
+ * Styles for email signup forms (widget, shortcode, modal)
+ * 
+ * @package AEBG
+ */
+
+.aebg-email-signup-widget,
+.aebg-email-signup-shortcode {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.aebg-email-signup-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.aebg-form-group {
+	position: relative;
+}
+
+.aebg-form-input {
+	width: 100%;
+	padding: 12px 16px;
+	border: 2px solid #e5e7eb;
+	border-radius: 8px;
+	font-size: 14px;
+	transition: all 0.3s;
+}
+
+.aebg-form-input:focus {
+	outline: none;
+	border-color: #667eea;
+	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.aebg-form-submit {
+	padding: 12px 24px;
+	background: #667eea;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.aebg-form-submit:hover {
+	background: #5568d3;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.aebg-form-message {
+	margin-top: 12px;
+}
+
+.aebg-form-message .notice {
+	padding: 12px;
+	border-radius: 6px;
+}
+
+.aebg-form-message .notice-success {
+	background: #d1fae5;
+	color: #065f46;
+	border: 1px solid #10b981;
+}
+
+.aebg-form-message .notice-error {
+	background: #fee2e2;
+	color: #991b1b;
+	border: 1px solid #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+	.aebg-email-signup-widget,
+	.aebg-email-signup-shortcode {
+		max-width: 100%;
+	}
+}
+

@@ -1,0 +1,73 @@
+/**
+ * Bulk Categories CSS
+ * Styles for bulk category assignment in WordPress posts list
+ */
+
+.aebg-bulk-category-selector {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #ddd;
+}
+
+.aebg-bulk-category-selector .title {
+	font-weight: 600;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.aebg-bulk-category-multiselect {
+	width: 100%;
+	min-height: 100px;
+	padding: 5px;
+	border: 1px solid #8c8f94;
+	border-radius: 4px;
+	background-color: #fff;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.aebg-bulk-category-multiselect:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+	outline: 2px solid transparent;
+}
+
+.aebg-bulk-category-selector .description {
+	color: #646970;
+	font-size: 12px;
+	margin-top: 5px;
+	display: block;
+}
+
+.aebg-bulk-category-actions {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #e5e5e5;
+}
+
+.aebg-bulk-category-actions label {
+	display: inline-block;
+	margin-right: 15px;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.aebg-bulk-category-actions input[type="radio"] {
+	margin-right: 5px;
+	margin-top: 0;
+	vertical-align: middle;
+}
+
+/* Ensure the bulk edit form has enough space */
+#bulk-edit .inline-edit-group {
+	margin-bottom: 10px;
+}
+
+/* Make the category selector more visible */
+#bulk-edit .aebg-bulk-category-selector {
+	background-color: #f9f9f9;
+	padding: 10px;
+	border-radius: 4px;
+	margin-top: 15px;
+}
+

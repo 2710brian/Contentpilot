@@ -1,0 +1,19 @@
+{
+    "name": "your-name/ai-bulk-generator-for-elementor",
+    "description": "A state-of-the-art AI Bulk Generator for Elementor.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "you@example.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "AEBG\\": "src/"
+        }
+    }
+}

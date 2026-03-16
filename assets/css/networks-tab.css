@@ -1,0 +1,1418 @@
+/**
+ * Networks Tab - Modern Wireframe Design
+ * Professional, responsive UI matching wireframe structure
+ * 
+ * @package AEBG
+ */
+
+/* CRITICAL: Global override to prevent any scrollbars in networks tab containers */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-container,
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-view,
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-grid {
+    overflow-y: visible !important; /* Force no vertical scrollbars */
+    overflow-x: visible !important; /* No horizontal scrollbars either */
+    max-height: none !important; /* No height constraints */
+    height: auto !important; /* Let content determine height */
+}
+
+/* Exception: Only allow overflow on carousel (horizontal) */
+.aebg-stats-carousel {
+    overflow-x: hidden !important; /* Carousel needs horizontal overflow hidden */
+    overflow-y: visible !important;
+}
+
+/* Reset and base styles for networks tab */
+/* CRITICAL: Only apply display:block when tab is active - respect tab system visibility */
+/* This ensures the networks tab only shows when it's the active tab */
+.aebg-tab-panel#aebg-tab-networks {
+    /* Don't force display - let tab system control visibility via .active class */
+    width: 100% !important;
+    position: relative;
+    z-index: 1; /* Ensure proper stacking context - same as other tabs */
+}
+
+/* When active, show the tab */
+.aebg-tab-panel#aebg-tab-networks.active {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* When NOT active, explicitly hide - bulletproof override */
+.aebg-tab-panel#aebg-tab-networks:not(.active) {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important; /* Prevent any interaction when hidden */
+    opacity: 0 !important; /* Extra safety */
+}
+
+#aebg-tab-networks *,
+.aebg-tab-panel#aebg-tab-networks * {
+    box-sizing: border-box;
+}
+
+/* Critical: Force vertical layout structure - only when tab is active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 0 !important;
+    overflow: visible !important; /* CRITICAL: Allow content to extend */
+    overflow-y: visible !important; /* No vertical scroll */
+    max-height: none !important; /* No height constraints */
+    height: auto !important; /* Let content determine height */
+}
+
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-stats {
+    order: 1;
+    flex: 0 0 auto;
+}
+
+.aebg-tab-panel#aebg-tab-networks.active .aebg-filters-bar {
+    order: 2;
+    flex: 0 0 auto;
+}
+
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-view {
+    order: 3;
+    flex: 0 1 auto; /* Don't grow/shrink - let content determine size */
+}
+
+/* ============================================
+   CONTAINER & BASE
+   ============================================ */
+
+/* High specificity to override admin.css - only when tab is active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+    background: transparent !important;
+    display: block !important;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 1; /* Ensure proper stacking */
+}
+
+/* Force vertical stacking - prevent any side-by-side layouts - only when active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-container > * {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    box-sizing: border-box;
+}
+
+/* Explicitly ensure stats, filters, and view stack vertically - only when active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-stats,
+.aebg-tab-panel#aebg-tab-networks.active .aebg-filters-bar,
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-view {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   STAT CARDS CAROUSEL (4 Cards)
+   ============================================ */
+
+/* Carousel wrapper */
+.aebg-stats-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 0 50px; /* Space for navigation arrows */
+}
+
+/* Carousel container - hides overflow */
+.aebg-stats-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* Stats container - uses flex for carousel - only when tab is active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-stats,
+.aebg-networks-stats {
+    display: flex !important;
+    gap: 20px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    width: 100%;
+}
+
+/* Desktop: Show all 4 cards in a row */
+.aebg-networks-stats .aebg-stat-card {
+    flex: 0 0 calc(25% - 15px);
+    min-width: 0;
+}
+
+/* Navigation arrows */
+.aebg-carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+/* Hide navigation on desktop when all cards are visible */
+@media (min-width: 1025px) {
+    .aebg-stats-carousel-wrapper:not(.aebg-carousel-active) .aebg-carousel-nav,
+    .aebg-stats-carousel-wrapper:not(.aebg-carousel-active) .aebg-carousel-indicators {
+        display: none;
+    }
+    
+    .aebg-stats-carousel-wrapper:not(.aebg-carousel-active) {
+        padding: 0;
+    }
+}
+
+.aebg-carousel-nav:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.aebg-carousel-nav:active:not(:disabled) {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.aebg-carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.aebg-carousel-nav .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #475569;
+    line-height: 1;
+}
+
+.aebg-carousel-prev {
+    left: 0;
+}
+
+.aebg-carousel-next {
+    right: 0;
+}
+
+/* Carousel indicators/dots */
+.aebg-carousel-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 0;
+}
+
+.aebg-carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.aebg-carousel-indicator:hover {
+    background: #94a3b8;
+    transform: scale(1.2);
+}
+
+.aebg-carousel-indicator.active {
+    background: #667eea;
+    width: 24px;
+    border-radius: 4px;
+    transform: scale(1);
+}
+
+.aebg-stats-scroll-indicator .dashicons {
+    font-size: 20px;
+    color: #475569;
+}
+
+.aebg-stats-scroll-indicator:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: translateY(-50%);
+}
+
+.aebg-stats-scroll-indicator:disabled:hover {
+    transform: translateY(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.aebg-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.aebg-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.aebg-stat-icon {
+    font-size: 32px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.aebg-stat-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.aebg-stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.aebg-stat-label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   FILTERS BAR (Full Width)
+   ============================================ */
+
+/* High specificity to ensure proper layout - only when tab is active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-filters-bar,
+.aebg-filters-bar {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100% !important;
+    box-sizing: border-box;
+    clear: both !important;
+    float: none !important;
+}
+
+.aebg-filters-bar::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 0;
+    order: 999;
+    clear: both;
+}
+
+.aebg-filters-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.aebg-filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+}
+
+.aebg-filter-item label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.aebg-filter-select {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.aebg-filter-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.aebg-clear-filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-height: 40px;
+    margin-top: 20px;
+}
+
+.aebg-clear-filters-btn:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.aebg-filters-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.aebg-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 280px;
+}
+
+.aebg-search-wrapper .dashicons-search {
+    position: absolute;
+    left: 12px;
+    color: #94a3b8;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.aebg-network-search {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 40px;
+}
+
+.aebg-network-search:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.aebg-network-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: #667eea;
+    white-space: nowrap;
+    padding: 8px 16px;
+    background: #eef2ff;
+    border-radius: 8px;
+    border: 1px solid #c7d2fe;
+}
+
+/* Filter Chips */
+.aebg-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.aebg-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #eef2ff;
+    color: #667eea;
+    border: 1px solid #c7d2fe;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.aebg-filter-chip .dashicons {
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.aebg-filter-chip .dashicons:hover {
+    opacity: 1;
+}
+
+/* ============================================
+   NETWORK GRID/LIST VIEW
+   ============================================ */
+
+/* High specificity to ensure proper layout - only when tab is active */
+.aebg-tab-panel#aebg-tab-networks.active .aebg-networks-view,
+.aebg-networks-view {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    min-height: 400px;
+    width: 100% !important;
+    box-sizing: border-box;
+    clear: both !important;
+    display: block !important;
+    float: none !important;
+    overflow: visible !important; /* Remove scroll - let page extend naturally */
+    overflow-y: visible !important; /* CRITICAL: No vertical scroll */
+    overflow-x: visible !important; /* No horizontal scroll */
+    max-height: none !important; /* No height constraints */
+    height: auto !important; /* Let content determine height */
+}
+
+.aebg-networks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    overflow: visible !important; /* CRITICAL: No overflow on grid */
+    overflow-y: visible !important; /* No vertical scroll */
+    max-height: none !important; /* No height constraints */
+    height: auto !important; /* Let content determine height */
+}
+
+.aebg-network-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.aebg-network-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.aebg-network-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.aebg-network-card[data-configured="1"] {
+    border-color: #10b981;
+}
+
+.aebg-network-card[data-configured="1"]::before {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.aebg-network-card-header {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.aebg-network-card-header h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.aebg-network-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.aebg-network-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.aebg-network-flag {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.aebg-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.aebg-status-badge.aebg-status-configured {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.aebg-status-badge.aebg-status-not-configured {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.aebg-status-badge .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.aebg-network-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aebg-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.aebg-form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.aebg-affiliate-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 40px;
+}
+
+.aebg-affiliate-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* API Credentials */
+.aebg-network-api-credentials {
+    margin-top: 8px;
+}
+
+.aebg-toggle-credentials {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.aebg-toggle-credentials:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.aebg-toggle-credentials .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.aebg-toggle-credentials .dashicons-arrow-down {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}
+
+.aebg-toggle-credentials[aria-expanded="true"] .dashicons-arrow-down {
+    transform: rotate(180deg);
+}
+
+.aebg-credentials-panel {
+    margin-top: 12px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.aebg-credentials-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.aebg-credential-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.aebg-credential-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 40px;
+}
+
+.aebg-credential-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.aebg-delete-credential {
+    padding: 10px 16px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.aebg-delete-credential:hover {
+    background: #fecaca;
+    border-color: #fca5a5;
+}
+
+.required-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 6px;
+}
+
+.credential-status {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.credential-status.success {
+    color: #10b981;
+}
+
+.credential-status.missing {
+    color: #ef4444;
+}
+
+.aebg-credentials-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.aebg-save-credentials,
+.aebg-test-credentials {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.aebg-save-credentials {
+    background: #667eea;
+    color: white;
+}
+
+.aebg-save-credentials:hover:not(:disabled) {
+    background: #5568d3;
+    transform: translateY(-1px);
+}
+
+.aebg-test-credentials {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.aebg-test-credentials:hover:not(:disabled) {
+    background: #e2e8f0;
+}
+
+.aebg-credentials-messages {
+    margin-top: 12px;
+}
+
+.aebg-credentials-messages .notice {
+    margin: 0;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* ============================================
+   EMPTY STATES
+   ============================================ */
+
+.aebg-networks-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.aebg-networks-empty-icon {
+    font-size: 48px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+.aebg-networks-empty h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.aebg-networks-empty p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+
+.aebg-pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.aebg-pagination-info {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.aebg-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.aebg-pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.aebg-pagination-btn:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.aebg-pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.aebg-pagination-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+}
+
+.aebg-pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.aebg-pagination-page-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aebg-pagination-page-btn:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+}
+
+.aebg-pagination-page-btn.active {
+    background: #667eea;
+    border-color: #667eea;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.aebg-pagination-pages span {
+    padding: 0 8px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* ============================================
+   AUTO-SAVE STATUS
+   ============================================ */
+
+/* Auto-save status - only visible when networks tab is active */
+.aebg-tab-panel#aebg-tab-networks.active ~ * .aebg-auto-save-status,
+.aebg-tab-panel#aebg-tab-networks.active .aebg-auto-save-status,
+.aebg-auto-save-status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 300px;
+    animation: slideInUp 0.3s ease-out;
+}
+
+/* Hide auto-save status when networks tab is not active */
+.aebg-tab-panel#aebg-tab-networks:not(.active) .aebg-auto-save-status {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.aebg-auto-save-status .notice {
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.aebg-auto-save-status .notice .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Large Desktop: > 1400px */
+@media (min-width: 1401px) {
+    .aebg-networks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+/* Desktop: 1025px - 1400px */
+@media (min-width: 1025px) and (max-width: 1400px) {
+    .aebg-networks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/* Tablet: 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .aebg-stats-carousel-wrapper {
+        padding: 0 50px;
+    }
+    
+    /* Show 2 cards at a time on tablet */
+    .aebg-networks-stats .aebg-stat-card {
+        flex: 0 0 calc(50% - 10px);
+        min-width: 0;
+    }
+    
+    .aebg-filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+    
+    .aebg-filters-bar::after {
+        display: none;
+    }
+    
+    .aebg-filters-left {
+        width: 100%;
+    }
+    
+    .aebg-filter-item {
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .aebg-clear-filters-btn {
+        margin-top: 0;
+        align-self: flex-end;
+    }
+    
+    .aebg-filters-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .aebg-search-wrapper {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .aebg-networks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+    }
+}
+
+/* Mobile: < 768px */
+@media (max-width: 768px) {
+    .aebg-networks-stats {
+        display: flex;
+        grid-template-columns: none;
+        gap: 12px;
+        margin-bottom: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f1f5f9;
+        padding-bottom: 8px;
+    }
+    
+    .aebg-networks-stats::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .aebg-networks-stats::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 2px;
+    }
+    
+    .aebg-networks-stats::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 2px;
+    }
+    
+    .aebg-networks-stats::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+    
+    .aebg-networks-stats .aebg-stat-card {
+        flex: 0 0 calc(50% - 6px);
+        min-width: 240px;
+        scroll-snap-align: start;
+    }
+    
+    .aebg-stat-card {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .aebg-stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+    
+    .aebg-stat-value {
+        font-size: 24px;
+    }
+    
+    .aebg-stat-label {
+        font-size: 11px;
+    }
+    
+    .aebg-filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .aebg-filters-bar::after {
+        display: none;
+    }
+    
+    .aebg-filters-left {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .aebg-filter-item {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .aebg-filter-select {
+        width: 100%;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .aebg-clear-filters-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0;
+    }
+    
+    .aebg-filters-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .aebg-search-wrapper {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .aebg-network-search {
+        width: 100%;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .aebg-network-count {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .aebg-networks-view {
+        padding: 16px;
+    }
+    
+    .aebg-networks-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .aebg-network-card {
+        padding: 16px;
+    }
+    
+    .aebg-auto-save-status {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .aebg-pagination-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .aebg-pagination-info {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .aebg-pagination-controls {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .aebg-pagination-btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 100px;
+    }
+    
+    .aebg-pagination-pages {
+        justify-content: center;
+    }
+}
+
+/* Mobile: < 768px */
+@media (max-width: 768px) {
+    .aebg-stats-carousel-wrapper {
+        padding: 0 40px;
+    }
+    
+    /* Show 1 card at a time on mobile */
+    .aebg-networks-stats .aebg-stat-card {
+        flex: 0 0 100%;
+        min-width: 0;
+    }
+    
+    .aebg-carousel-nav {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .aebg-carousel-nav .dashicons {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Small Mobile: < 480px */
+@media (max-width: 480px) {
+    .aebg-stats-carousel-wrapper {
+        padding: 0 30px;
+    }
+    
+    .aebg-networks-stats {
+        gap: 10px;
+    }
+    
+    .aebg-networks-stats .aebg-stat-card {
+        flex: 0 0 100%;
+        min-width: 0;
+    }
+    
+    .aebg-stat-card {
+        padding: 14px;
+    }
+    
+    .aebg-stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
+    
+    .aebg-stat-value {
+        font-size: 20px;
+    }
+    
+    .aebg-stat-label {
+        font-size: 10px;
+    }
+    
+    .aebg-filters-bar {
+        padding: 12px;
+    }
+    
+    .aebg-networks-view {
+        padding: 12px;
+    }
+    
+    .aebg-network-card {
+        padding: 14px;
+    }
+    
+    .aebg-network-card-header h3 {
+        font-size: 15px;
+    }
+    
+    .aebg-auto-save-status {
+        bottom: 8px;
+        right: 8px;
+        left: 8px;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.aebg-network-card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.aebg-network-card:nth-child(1) { animation-delay: 0.05s; }
+.aebg-network-card:nth-child(2) { animation-delay: 0.1s; }
+.aebg-network-card:nth-child(3) { animation-delay: 0.15s; }
+.aebg-network-card:nth-child(4) { animation-delay: 0.2s; }
+.aebg-network-card:nth-child(5) { animation-delay: 0.25s; }
+.aebg-network-card:nth-child(n+6) { animation-delay: 0.3s; }
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.aebg-network-card:focus-within {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.aebg-filter-select:focus,
+.aebg-network-search:focus,
+.aebg-affiliate-input:focus,
+.aebg-credential-input:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Screen reader only */
+.aebg-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
