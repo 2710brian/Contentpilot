@@ -38,8 +38,21 @@ if ([string]::IsNullOrWhiteSpace($Message)) {
 
 git commit -m $Message
 
-# Push
-git push
+# Push (sæt upstream automatisk hvis nødvendigt)
+$branch = (git rev-parse --abbrev-ref HEAD).Trim()
+$hasUpstream = $true
+try {
+  git rev-parse --abbrev-ref --symbolic-full-name "@{u}" | Out-Null
+} catch {
+  $hasUpstream = $false
+}
+
+if (-not $hasUpstream) {
+  Write-Host "Ingen upstream branch sat. Sætter upstream til origin/$branch ..."
+  git push --set-upstream origin $branch
+} else {
+  git push
+}
 
 Write-Host "Færdig. Ændringer er sendt til GitHub."
 
